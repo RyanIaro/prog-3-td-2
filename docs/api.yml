@@ -1,0 +1,120 @@
+openapi: 3.0.0
+servers:
+  - url: https://virtserver.swaggerhub.com/hei-ryan/PROG3_TD2/1.0.0
+info:
+  version: "latest"
+  title: PROG3 - TD2
+paths:
+  /matches:
+    get:
+      tags:
+        - Matches
+      summary: get all matches
+      operationId: getMatches
+      responses:
+        '200':
+          description: List of matches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+        '500':
+          description: Internal server error
+  /teams:
+    get:
+      tags:
+        - Teams
+      summary: get all teams
+      operationId: getTeams
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        '500':
+          description: Internal server error
+  /players:
+    get:
+      tags:
+        - Players
+      summary: get all players
+      operationId: getPlayers
+      responses:
+        '200' :
+          description: List of players
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Team:
+      allOf:
+        - $ref: '#/components/schemas/CreateTeam'
+      properties:
+        id:
+          type: integer
+    CreateTeam:
+      type: object
+      properties:
+        name:
+          type: string
+        sponsors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sponsor'
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+    Player:
+      allOf:
+        - $ref: '#/components/schemas/CreatePlayer'
+      properties:
+        id:
+          type: integer
+    CreatePlayer:
+      type: object
+      properties:
+        name:
+          type: string
+        number:
+          type: integer
+    Sponsor:
+      allOf:
+        - $ref: '#/components/schemas/CreateSponsor'
+      properties:
+        id:
+          type: integer
+    CreateSponsor:
+      type: object
+      properties:
+        name:
+          type: string
+    Match:
+      allOf:
+        - $ref: '#/components/schemas/CreateMatch'
+    CreateMatch:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        stadium:
+          type: string
+        team_a:
+          type: object
+          $ref: '#/components/schemas/Team'
+        team_b:
+          type: object
+          $ref: '#/components/schemas/Team'
