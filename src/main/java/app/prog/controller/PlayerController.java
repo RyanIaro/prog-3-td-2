@@ -1,5 +1,7 @@
 package app.prog.controller;
 
+import app.prog.controller.mapper.PlayerRestMapper;
+import app.prog.controller.response.PlayerResponse;
 import app.prog.model.PlayerEntity;
 import app.prog.model.TeamEntity;
 import app.prog.service.PlayerService;
@@ -14,9 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 public class PlayerController {
     private final PlayerService service;
+    private final PlayerRestMapper mapper;
 
     @GetMapping("/players")
-    public List<PlayerEntity> getPlayers() {
-        return service.getPlayers();
+    public List<PlayerResponse> getPlayers() {
+        return service.getPlayers().stream().map(mapper::toRest).toList();
     }
 }

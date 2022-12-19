@@ -1,9 +1,8 @@
 package app.prog.controller;
 
-import app.prog.model.MatchEntity;
-import app.prog.model.TeamEntity;
+import app.prog.controller.mapper.MatchRestMapper;
+import app.prog.controller.response.MatchResponse;
 import app.prog.service.MatchService;
-import app.prog.service.TeamService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,9 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 public class MatchController {
     private final MatchService service;
+    private final MatchRestMapper mapper;
 
     @GetMapping("/teams")
-    public List<MatchEntity> getMatches() {
-        return service.getMatches();
+    public List<MatchResponse> getMatches() {
+        return service.getMatches().stream().map(mapper::toRest).toList();
     }
 }

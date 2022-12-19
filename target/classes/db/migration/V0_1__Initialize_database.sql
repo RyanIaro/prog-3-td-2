@@ -1,7 +1,7 @@
 create table team(
 	id serial primary key,
 	name varchar
-)
+);
 
 create table player(
 	id serial primary key,
@@ -9,12 +9,12 @@ create table player(
 	number int,
 	add constraint team_player_fk foreign key
 	references team(id)
-)
+);
 
 create table sponsor(
 	id serial primary key,
 	name varchar
-)
+);
 
 create table have(
 	id_team int,
@@ -23,7 +23,7 @@ create table have(
 	id_sponsor int
 	add constraint sponsor_have_fk foreign key
 	references sponsor(id)
-)
+);
 
 create table play_against(
 	datetime date,
@@ -34,4 +34,4 @@ create table play_against(
 	team_b int,
 	add constraint team_b_fk foreign key
 	references team(id)
-)
+);
